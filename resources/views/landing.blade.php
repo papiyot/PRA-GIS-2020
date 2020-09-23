@@ -18,22 +18,49 @@
                 <div class="content content-full text-center">
                     <div class="pt-100 pb-150">
                         <h1 class="font-w700 display-4 mt-20 invisible" data-toggle="appear" data-timeout="50">
-                            Codebase
-                            <span class="font-w300">+</span>
-                            Laravel <span class="font-w300 text-pulse">7</span>
+                            Home<span class="font-w300 text-pulse"> Page</span>
                         </h1>
                         <h2 class="h3 font-w400 text-muted mb-50 invisible" data-toggle="appear" data-class="animated fadeInDown" data-timeout="300">
-                            Welcome to the starter kit! Build something amazing!
+                            Cari Kantor Polisi Terdekat
                         </h2>
                         <div class="invisible" data-toggle="appear" data-class="animated fadeInUp" data-timeout="300">
                             <a class="btn btn-hero btn-alt-primary min-width-175 mb-10 mx-5" href="/dashboard">
                                 <i class="fa fa-fw fa-arrow-right mr-1"></i> Enter Dashboard
                             </a>
                         </div>
+                        <div id="Map" style="height:300px"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- END Hero -->
+@endsection
+
+@section('js_after')
+<!-- <script>
+    map = new OpenLayers.Map("demoMap");
+    map.addLayer(new OpenLayers.Layer.OSM());
+    map.zoomToMaxExtent();
+</script> -->
+
+<script>
+    var lat            = 47.35387;
+    var lon            = 8.43609;
+    var zoom           = 18;
+
+    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+    var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+    var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
+
+    map = new OpenLayers.Map("Map");
+    var mapnik         = new OpenLayers.Layer.OSM();
+    map.addLayer(mapnik);
+
+    var markers = new OpenLayers.Layer.Markers( "Markers" );
+    map.addLayer(markers);
+    markers.addMarker(new OpenLayers.Marker(position));
+
+    map.setCenter(position, zoom);
+</script>
 @endsection
