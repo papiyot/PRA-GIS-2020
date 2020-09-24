@@ -29,7 +29,7 @@
 
         <!-- Scripts -->
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
-        <script src="{{ asset('js/openlayer/OpenLayers.js') }}"></script>
+        
     </head>
     <body>
         <!-- Page Container -->
