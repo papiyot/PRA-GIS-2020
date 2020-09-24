@@ -39,24 +39,19 @@ class MasterController extends Controller
 
     public function locations_store( Request $request)
     {
-        $field_id = $table . '_id';
-        if (is_null($request[$field_id])) {
-            $request->request->add([$field_id => Helper::getCode($table, $field_id, $code)]);
+        $message = ($request['locations_id']) ? 'Locations Updated' : 'Locations Added' ;
+        try{
+            $save = DB::table('locations')->updateOrInsert(
+                ['locations_id' => $request['locations_id']],
+                $request->except('_token', )
+            );
+            return redirect()->route('locations.view')
+                            ->with('success',$message.' Successfully');
+        }catch (\Throwable $th){
+            return redirect()->route('locations.view')->withInput()
+                            ->with('error',$message.' Failingly');
         }
-        if (isset($request['pt_id'])) {
-            $request->request->add(['pt_id' => Auth::user()->pt_id]);
-        }
-        if ($request[$table . '_nama'] != $request[$table . '_nama_old']) {
-            $cek = DB::table($table)->where($table . '_nama', $request[$table . '_nama'])->count();
-            if ($cek != 0) {
-                return Redirect()->back()->withInput()->with('status', 'Data Sudah Ada');
-            }
-        }
-        $save = DB::table($table)->updateOrInsert(
-            [$field_id => $request[$field_id]],
-            $request->except('_token', $table . '_nama_old')
-        );
-        return redirect('master/' . $table);
+        
     }
 
 
