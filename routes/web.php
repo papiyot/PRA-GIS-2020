@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/home', 'MasterController@home')->name('home');
+Route::post('/master/locations/store', 'MasterController@locations_store')->name('locations.store');
+Route::get('/master/locations/{id?}', 'MasterController@locations_view')->name('locations.view');
+Route::get('/delete/locations/{id?}', 'MasterController@locations_delete')->name('locations.delete');
+
+
 // Example Routes
 Route::view('/', 'landing');
 Route::match(['get', 'post'], '/dashboard', function(){
@@ -24,4 +31,4 @@ Route::view('/pages/blank', 'pages.blank');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

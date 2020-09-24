@@ -16,7 +16,7 @@
                 <ul class="list-inline mt-10">
                     <li class="list-inline-item">
                     <a class="img-link" href="javascript:void(0)">
-                    <img class="img-avatar" src="{{ asset('assets/media/avatars/avatar0.jpg') }}" alt="">
+                    <img class="img-avatar" src="{{ asset('media/avatars/avatar0.jpg') }}" alt="">
                 </a>
                         
                     </li>
@@ -43,12 +43,8 @@
                     <a href="{{ route('home') }}"><span class="sidebar-mini-hide">Home</span></a>
                 </li>
                 <li>
-                <a href="{{ route('master',['pembebanan']) }}"><span class="sidebar-mini-hide">Pembebaban</span></a>
-                <a href="{{ route('master',['pt']) }}"><span class="sidebar-mini-hide">PT</span></a>
-                <a href="{{ route('master',['departemen']) }}"><span class="sidebar-mini-hide">Departement</span></a>
-                <a href="{{ route('hitung') }}"><span class="sidebar-mini-hide">Hitung</span></a>
-                <a href="{{ route('anggaran') }}"><span class="sidebar-mini-hide">Laporan Anggaran</span></a>
-                <a href="{{ route('bop') }}"><span class="sidebar-mini-hide">Laporan BOP</span></a>
+                <a href="{{ route('locations.view') }}"><span class="sidebar-mini-hide">Locations</span></a>
+                
                 </li>
                 <!--  -->
             </ul>
