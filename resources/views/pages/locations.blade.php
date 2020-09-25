@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title')PT @endsection
+@section('title')Locations @endsection
 @section('content')
 <div class="col-md-12">
     <!-- Material (floating) Register -->
@@ -47,7 +47,6 @@
                         <div class="form-material floating">
                             <input type="hidden" class="form-control" id="locations_id" name="locations_id" value="@php echo ($data->edit) ? $data->edit->locations_id: ''; @endphp">
                             <input type="text" class="form-control" id="locations_name" name="locations_name" required value="@php echo ($data->edit) ? $data->edit->locations_name:  old('locations_name'); @endphp">
-                            @if(session()->has('status')) <p class="text-danger">{{ session()->get('status') }}</p> @endif
                             <label for="locations_name">Locations Name</label>
                         </div>
                     </div>

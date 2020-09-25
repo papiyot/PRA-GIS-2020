@@ -44,6 +44,7 @@
                 </li>
                 <li>
                 <a href="{{ route('locations.view') }}"><span class="sidebar-mini-hide">Locations</span></a>
+                <a href="{{ route('images.view') }}"><span class="sidebar-mini-hide">Images</span></a>
                 
                 </li>
                 <!--  -->

@@ -14,14 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/home', 'MasterController@home')->name('home');
+Route::get('/master/home', 'MasterController@home')->name('home');
 Route::post('/master/locations/store', 'MasterController@locations_store')->name('locations.store');
 Route::get('/master/locations/{id?}', 'MasterController@locations_view')->name('locations.view');
 Route::get('/delete/locations/{id?}', 'MasterController@locations_delete')->name('locations.delete');
+Route::post('/master/images/store', 'MasterController@images_store')->name('images.store');
+Route::get('/master/images/{id?}', 'MasterController@images_view')->name('images.view');
+Route::get('/delete/images/{id?}', 'MasterController@images_delete')->name('images.delete');
+Route::get('/spliting', 'MasterController@spliting')->name('spliting');
 
+Route::get('/', 'HomeController@index')->name('map');
 
 // Example Routes
-Route::view('/', 'landing');
+// Route::view('/', 'landing');
 Route::match(['get', 'post'], '/dashboard', function(){
     return view('dashboard');
 });
