@@ -91,8 +91,8 @@
     var icon = {
         url: "https://www.waroengss.com/filemanager/image/icon-map.png"
     };
+    var clickedLocation;
     var markers = [];
-    var markerArray = [];
     var currentlocation;
     const directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
@@ -105,7 +105,6 @@
 
     function init(set = null) {
         markers = [];
-        markerArray = [];
         currentlocation;
         if (set) {
             directionsRenderer = new google.maps.DirectionsRenderer();
@@ -118,17 +117,7 @@
             
         }
 
-
-        // directionsRenderer.setDirections(null);
-
-        // const onChangeHandler = function () {
-        //     calculateAndDisplayRoute(directionsService, directionsRenderer);
-        // };
-
-        // document.getElementById("start").addEventListener("change", onChangeHandler);
-        // document.getElementById("end").addEventListener("change", onChangeHandler);
         var infowindow = new google.maps.InfoWindow();
-
 
         mylocation();
         for (i = 0; i < locations.length; i++) {
@@ -175,11 +164,11 @@
                 travelMode: document.getElementById("mode").value,
             },
             (response, status) => {
-                console.log('ini response', response);
-                console.log('ini currentlocation', currentlocation);
+                // console.log('ini response', response);
+                // console.log('ini currentlocation', currentlocation);
                 // console.log('ini lat', parseInt(document.getElementById("to").lat));
-                console.log('ini des', des);
-                console.log('ini travelMode', document.getElementById("mode").value);
+                // console.log('ini des', des);
+                // console.log('ini travelMode', document.getElementById("mode").value);
                 if (status === "OK") {
                     directionsRenderer.setDirections(response);
                 } else {
@@ -203,7 +192,6 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    console.log('position', position);
                     const pos = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
@@ -213,10 +201,31 @@
                         icon: image,
                         position: new google.maps.LatLng(pos.lat, pos.lng),
                         map: map,
-                        draggable: false
+                        draggable: true
                     });
-                    console.log('ini pos', pos);
                     map.setCenter(pos);
+                    google.maps.event.addListener(map, 'click', function(event) {                
+                    //Get the location that the user clicked.
+                    clickedLocation = event.latLng;
+                    //If the marker hasn't been added.
+                    if(marker === false){
+                        //Create the marker.
+                        marker = new google.maps.Marker({
+                            position: clickedLocation,
+                            map: map,
+                            draggable: true //make it draggable
+                        });
+                        //Listen for drag events!
+                        google.maps.event.addListener(marker, 'dragend', function(event){
+                            markerLocation();
+                        });
+                    } else{
+                        //Marker has already been added, so just change its location.
+                        marker.setPosition(clickedLocation);
+                    }
+                    //Get the marker's location.
+                    markerLocation();
+                });
                 },
                 () => {
                     handleLocationError(true, infoWindow, map.getCenter());
@@ -225,6 +234,12 @@
         } else {
             handleLocationError(false, infoWindow, map.getCenter());
         }
+    }
+    function markerLocation(){
+        currentlocation.lat = marker.getPosition().lat();
+        currentlocation.lng = marker.getPosition().lng();
+        //Add lat and lng values to a field that we can save.
+        // console.log('drag',currentlocation );
     }
     init();
 </script>
