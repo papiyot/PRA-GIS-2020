@@ -129,12 +129,15 @@
             markers.push(marker);
 
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                
                 return function() {
+                    document.getElementById("to").value = locations[i][4];
                     infowindow.setContent('<div style="width:200px; height:auto;" id="content">' + '<div id="siteNotice">' +
                         '</div>' +
                         '<h2 style="font-size:20px" id="firstHeading" class="firstHeading">' + locations[i][0] + '</h2>' +
                         '<div id="bodyContent">' +
-                        '<p>' + locations[i][3] + '<br><br><a style="text-center" onclick="outletdetail(' + locations[i][4] + ')" id="maps-btn">Detail</a></p>' +
+                        '<p>' + locations[i][3] + 
+                        // '<br><br><a style="text-center" onclick="outletdetail(' + locations[i][4] + ')" id="maps-btn">Detail</a></p>' +
                         '<p></p></div>' +
                         '</div>');
 
